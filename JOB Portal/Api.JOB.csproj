@@ -34,10 +34,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\Application.JOB\Application.JOB.csproj" />
     <ProjectReference Include="..\Domain.JOB\Domain.JOB.csproj" />
     <ProjectReference Include="..\Infrastructure.JOB\Infrastructure.JOB.csproj" />
