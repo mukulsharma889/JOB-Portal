@@ -1,4 +1,4 @@
-﻿namespace Application.JOB.Modals.Auth;
+﻿namespace Application.JOB.Modals.Auth.Login;
 
 public class LoginRequest
 {

@@ -12,5 +12,5 @@ public class Job : BaseEntity<Guid>
     public string CompanyName { get; set; } = default!;
     public string CompanyWebsite { get; set; } = default!;
     public JobType JobType { get; set; }
-    public ICollection<ApplicationUser> Users { get; set; } = [];
+    public ICollection<UserJobs> UserJobs { get; set; } = [];
 }

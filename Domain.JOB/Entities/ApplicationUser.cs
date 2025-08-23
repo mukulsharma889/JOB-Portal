@@ -2,7 +2,10 @@
 
 namespace Domain.JOB.Entities;
 
+
 public class ApplicationUser : IdentityUser<Guid>
 {
-    public ICollection<Job> Jobs { get; set; } = [];
+    public string FirstName { get; set; } = string.Empty;   
+    public string LastName { get; set; } = string.Empty;
+    public ICollection<UserJobs> UserJobs { get; set; } = [];
 }

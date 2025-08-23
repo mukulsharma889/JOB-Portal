@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.JOB.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20250812155303_roleseed")]
-    partial class roleseed
+    [Migration("20250823124524_role_seed")]
+    partial class role_seed
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -24,21 +24,6 @@ namespace Infrastructure.JOB.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
-
-            modelBuilder.Entity("ApplicationUserJob", b =>
-                {
-                    b.Property<Guid>("JobsId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("UsersId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("JobsId", "UsersId");
-
-                    b.HasIndex("UsersId");
-
-                    b.ToTable("ApplicationUserJob");
-                });
 
             modelBuilder.Entity("Domain.JOB.Entities.ApplicationUser", b =>
                 {
@@ -59,6 +44,14 @@ namespace Infrastructure.JOB.Migrations
 
                     b.Property<bool>("EmailConfirmed")
                         .HasColumnType("bit");
+
+                    b.Property<string>("FirstName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("LockoutEnabled")
                         .HasColumnType("bit");
@@ -103,7 +96,7 @@ namespace Infrastructure.JOB.Migrations
                         .HasDatabaseName("UserNameIndex")
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
-                    b.ToTable("AspNetUsers", (string)null);
+                    b.ToTable("Users", (string)null);
 
                     b.HasData(
                         new
@@ -113,10 +106,12 @@ namespace Infrastructure.JOB.Migrations
                             ConcurrencyStamp = "935e5a4d-a35f-491a-ba18-b58b5b3039f5",
                             Email = "smukul889@gmail.com",
                             EmailConfirmed = false,
+                            FirstName = "Mukul",
+                            LastName = "Sharma",
                             LockoutEnabled = false,
                             NormalizedEmail = "SMUKUL889@GMAIL.COM",
                             NormalizedUserName = "ADMIN",
-                            PasswordHash = "AQAAAAIAAYagAAAAEC73ZoX2Vi76L/iPIalujEDkYo6RtwcumxpvMAaLLA9y90IHma9nufjWGRfpGvAqdA==",
+                            PasswordHash = "AQAAAAIAAYagAAAAENM8ykI7k9RnEG5XAnzpuiFWJAZD9nV7UXwxAoxSj5KSfkn2ve2bmCWIyjzHmgWnUg==",
                             PhoneNumber = "7465915545",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "935e5a4d-a35f-491a-ba18-b58b5b3039f5",
@@ -210,7 +205,7 @@ namespace Infrastructure.JOB.Migrations
 
                     b.HasIndex("JobId");
 
-                    b.ToTable("UserJobs");
+                    b.ToTable("UserJobs", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole<System.Guid>", b =>
@@ -238,7 +233,7 @@ namespace Infrastructure.JOB.Migrations
                         .HasDatabaseName("RoleNameIndex")
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
-                    b.ToTable("AspNetRoles", (string)null);
+                    b.ToTable("Roles", (string)null);
 
                     b.HasData(
                         new
@@ -278,7 +273,7 @@ namespace Infrastructure.JOB.Migrations
 
                     b.HasIndex("RoleId");
 
-                    b.ToTable("AspNetRoleClaims", (string)null);
+                    b.ToTable("RoleClaims", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<System.Guid>", b =>
@@ -302,7 +297,7 @@ namespace Infrastructure.JOB.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("AspNetUserClaims", (string)null);
+                    b.ToTable("UserClaims", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<System.Guid>", b =>
@@ -323,7 +318,7 @@ namespace Infrastructure.JOB.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("AspNetUserLogins", (string)null);
+                    b.ToTable("UserLogin", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<System.Guid>", b =>
@@ -338,7 +333,7 @@ namespace Infrastructure.JOB.Migrations
 
                     b.HasIndex("RoleId");
 
-                    b.ToTable("AspNetUserRoles", (string)null);
+                    b.ToTable("UserRoles", (string)null);
 
                     b.HasData(
                         new
@@ -364,34 +359,19 @@ namespace Infrastructure.JOB.Migrations
 
                     b.HasKey("UserId", "LoginProvider", "Name");
 
-                    b.ToTable("AspNetUserTokens", (string)null);
-                });
-
-            modelBuilder.Entity("ApplicationUserJob", b =>
-                {
-                    b.HasOne("Domain.JOB.Entities.Job", null)
-                        .WithMany()
-                        .HasForeignKey("JobsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Domain.JOB.Entities.ApplicationUser", null)
-                        .WithMany()
-                        .HasForeignKey("UsersId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.ToTable("UserTokens", (string)null);
                 });
 
             modelBuilder.Entity("Domain.JOB.Entities.UserJobs", b =>
                 {
                     b.HasOne("Domain.JOB.Entities.Job", "Job")
-                        .WithMany()
+                        .WithMany("UserJobs")
                         .HasForeignKey("JobId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("Domain.JOB.Entities.ApplicationUser", "User")
-                        .WithMany()
+                        .WithMany("UserJobs")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -450,6 +430,16 @@ namespace Infrastructure.JOB.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("Domain.JOB.Entities.ApplicationUser", b =>
+                {
+                    b.Navigation("UserJobs");
+                });
+
+            modelBuilder.Entity("Domain.JOB.Entities.Job", b =>
+                {
+                    b.Navigation("UserJobs");
                 });
 #pragma warning restore 612, 618
         }

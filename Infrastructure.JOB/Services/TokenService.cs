@@ -1,5 +1,6 @@
 ﻿using Application.JOB.Interfaces;
-using Application.JOB.Modals.Auth;
+using Application.JOB.Modals.Auth.Login;
+using Application.JOB.Modals.Auth.Register;
 using Application.JOB.Modals.Common;
 using Domain.JOB.Entities;
 using Microsoft.AspNetCore.Identity;
@@ -76,8 +77,40 @@ public class TokenService(UserManager<ApplicationUser> userManager, RoleManager<
     }
 
 
-    public Task<Result<string>> RegisterAsync(LoginRequest request)
+    public async Task<Result<string>> RegisterAsync(RegisterRequest request)
     {
-        throw new NotImplementedException();
+        ApplicationUser? isEmailExists = await _userManager.FindByEmailAsync(request.Email);
+        if (isEmailExists is not null)
+        {
+            return await Result<string>.FailAsync("User already exists");
+        }
+        ApplicationUser user = new()
+        {
+            FirstName = request.FirstName,
+            LastName = request.LastName,
+            Email = request.Email,
+            UserName = request.Email,
+            NormalizedEmail = request.Email.ToUpper().ToUpper(),
+        };
+
+        IdentityResult? isUserCreated =  await _userManager.CreateAsync(user, request.Password);
+
+        if (!isUserCreated.Succeeded)
+        {
+            return await Result<string>.FailAsync("User creation failed. Something went wrong!");
+        }
+
+        if(request.Roles.Length != 0 || request.Roles is not null)
+        {
+            IdentityResult userRoleResult = await _userManager.AddToRolesAsync(user, request.Roles);
+
+            if (!userRoleResult.Succeeded)
+            {
+                var errors = userRoleResult.Errors.Select(e => e.Description).ToArray();
+                return await Result<string>.FailAsync(errors ?? []);
+            }
+
+        }
+        return await Result<string>.SuccessAsync("User registered successfully");
     }
 }

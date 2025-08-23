@@ -19,8 +19,56 @@ namespace Infrastructure.JOB.Context
         {
             base.OnModelCreating(builder);
 
-            builder.Entity<UserJobs>()
-                .HasKey(x => new { x.UserId, x.JobId });
+            builder.Entity<UserJobs>(entity =>
+            {
+                entity.HasKey(uj => new { uj.UserId, uj.JobId });
+
+                entity.HasOne(uj => uj.User)
+                      .WithMany(u => u.UserJobs)
+                      .HasForeignKey(uj => uj.UserId);
+
+                entity.HasOne(uj => uj.Job)
+                      .WithMany(j => j.UserJobs)
+                      .HasForeignKey(uj => uj.JobId);
+
+                entity.ToTable("UserJobs");
+            });
+
+
+            builder.Entity<ApplicationUser>(x =>
+            {
+                x.ToTable("Users");
+            });
+
+            builder.Entity<IdentityRole<Guid>>(x =>
+            {
+                x.ToTable("Roles");
+            });
+
+            builder.Entity<IdentityUserRole<Guid>>(x =>
+            {
+                x.ToTable("UserRoles");
+            });
+
+            builder.Entity<IdentityUserClaim<Guid>>(x =>
+            {
+                x.ToTable("UserClaims");
+            });
+
+            builder.Entity<IdentityUserLogin<Guid>>(x =>
+            {
+                x.ToTable("UserLogin");
+            });
+
+            builder.Entity<IdentityRoleClaim<Guid>>(x =>
+            {
+                x.ToTable("RoleClaims");
+            });
+
+            builder.Entity<IdentityUserToken<Guid>>(b =>
+            {
+                b.ToTable("UserTokens");
+            });
 
             SeedRoles(builder);
             SeedAdminUser(builder);
@@ -61,6 +109,8 @@ namespace Infrastructure.JOB.Context
             {
                 Id = AdminUserId,
                 UserName = "admin",
+                FirstName = "Mukul",
+                LastName = "Sharma",    
                 NormalizedUserName = "ADMIN",
                 Email = "smukul889@gmail.com",
                 NormalizedEmail = "SMUKUL889@GMAIL.COM",

@@ -1,5 +1,6 @@
 ﻿using Application.JOB.Interfaces;
-using Application.JOB.Modals.Auth;
+using Application.JOB.Modals.Auth.Login;
+using Application.JOB.Modals.Auth.Register;
 using Application.JOB.Modals.Common;
 using Microsoft.AspNetCore.Mvc;
 
@@ -19,6 +20,10 @@ namespace JOB_Portal.Controllers.Authentication
         }
 
         [HttpPost("register")]
-        public async Task<IActionResult> Register() { return Ok(); }
+        public async Task<IActionResult> Register(RegisterRequest request)
+        {
+            var result = await _tokenService.RegisterAsync(request);
+            return result.Succeded ? Ok(result.Messages) : BadRequest(result.Messages);
+        }
     }
 }
