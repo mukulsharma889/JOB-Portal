@@ -1,12 +1,14 @@
 using Application.JOB.Interfaces;
 using Domain.JOB.Entities;
 using Infrastructure.JOB.Context;
+using Infrastructure.JOB.Repositories;
 using Infrastructure.JOB.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using System.Reflection;
 using System.Text;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
@@ -14,8 +16,14 @@ WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 IConfigurationSection jwtSettings = builder.Configuration.GetSection("Jwt");
 
+builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+
 builder.Services.AddOpenApi();
 builder.Services.AddEndpointsApiExplorer();
+
+builder.Services.AddMediatR(cfg =>
+     cfg.RegisterServicesFromAssembly(typeof(IUnitOfWork).Assembly));
+
 builder.Services.AddSwaggerGen(options =>
 {
     options.SwaggerDoc("v1", new OpenApiInfo { Title = "Job", Version = "v1" });
