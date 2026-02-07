@@ -10,6 +10,8 @@ namespace Infrastructure.JOB.Context
     {
         public DbSet<Job> Jobs { get; set; }
         public DbSet<UserJobs> UserJobs { get; set; }
+        public DbSet<Company> Company { get; set; }
+        public DbSet<Location> Location { get; set; }
 
         private static readonly Guid AdminUserId = Guid.Parse("935e5a4d-a35f-491a-ba18-b58b5b3039f5");
         private static readonly Guid AdminRoleId = Guid.Parse("e2332a79-6607-4d9b-b08d-d39ee20fb0a0");

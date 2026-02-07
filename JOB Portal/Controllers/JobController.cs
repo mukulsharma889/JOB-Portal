@@ -1,6 +1,6 @@
-﻿using Application.JOB.Features.JobFeature.Query.GetAllJobs;
+﻿using Application.JOB.Features.JobFeature.Command.AddEditJob;
+using Application.JOB.Features.JobFeature.Query.GetAllJobs;
 using MediatR;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace JOB_Portal.Controllers;
@@ -9,10 +9,17 @@ namespace JOB_Portal.Controllers;
 [ApiController]
 public class JobController(IMediator _mediator) : ControllerBase
 {
-    [HttpGet]
+    [HttpGet("get-jobs")]
     public async Task<IActionResult> GetJobs()
     {
         var result = await _mediator.Send(new GetJobsQuery());
-        return Ok("Got all jobs");
+        return Ok(result);
+    }
+
+    [HttpPost("add-edit-job")]
+    public async Task<IActionResult> AddEditJob(AddEditJobCommand request)
+    {
+        var result = await _mediator.Send(request);
+        return Ok(result);
     }
 }

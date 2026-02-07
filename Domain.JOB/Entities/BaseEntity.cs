@@ -1,12 +1,12 @@
 ﻿namespace Domain.JOB.Entities;
 
-public abstract class BaseEntity<TKey>
+public abstract class BaseEntity
 {
-    public TKey Id { get; set; } = default!;
+    public int Id { get; set; }
     public DateTime CreatedOn { get; set; } = DateTime.UtcNow;
-    public TKey CreatedBy { get; set; } = default!;
+    public Guid CreatedBy { get; set; } = default!;
     public DateTime? ModifiedOn { get; set; }
-    public TKey ModifiedBy { get; set; } = default!;
+    public Guid ModifiedBy { get; set; } = default!;
     public bool IsDeleted { get; set; }
 }
 
