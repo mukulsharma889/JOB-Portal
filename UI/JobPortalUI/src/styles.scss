@@ -1,1 +1,18 @@
-/* You can add global styles to this file, and also import other style files */
+// 1. Import functions first
+@import 'bootstrap/scss/functions';
+
+// 2. Define your custom primary color
+$primary: #001a5b; // Example: A nice Purple
+
+// 3. Import the rest of Bootstrap
+@import 'bootstrap/scss/variables';
+@import 'bootstrap/scss/variables-dark';
+@import 'bootstrap/scss/maps';
+@import 'bootstrap/scss/mixins';
+@import 'bootstrap/scss/root';
+@import 'bootstrap/scss/bootstrap';
+
+// :root {
+//   --bs-primary: #6f42c1;
+//   --bs-primary-rgb: 111, 66, 193; /* Required for transparency utilities */
+// }

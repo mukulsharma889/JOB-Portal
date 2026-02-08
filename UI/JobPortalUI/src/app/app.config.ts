@@ -13,7 +13,7 @@ export const appConfig: ApplicationConfig = {
       theme: {
         preset: Nora,
         options: {
-          darkModeSelector: '.my-app-dark', // Optional: for dark mode toggling
+          darkModeSelector: '.my-app-dark',
         },
       },
     }),
