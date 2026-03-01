@@ -1,26 +1,34 @@
-<nav class="navbar">
-  <div class="container header-container">
-    <a class="navbar-brand text-light">{{ title() }}</a>
-    <div class="dropdown text-end">
+<nav class="navbar header-container">
+  <div class="container-fluid d-flex justify-content-between align-items-center">
+    <!-- brand can be text or an image; keep both options available -->
+    <a class="navbar-brand d-flex align-items-center" href="/">
+      <!-- replace with actual logo path if available -->
+      <!-- <img src="assets/logo.png" alt="{{ title() }}" class="brand-logo" /> -->
+      <span class="brand-text">{{ title() }}</span>
+    </a>
+
+    <div class="user-menu dropdown">
       <a
         href="#"
-        class="d-block link-light text-decoration-none dropdown-toggle"
+        class="d-flex align-items-center link-dark text-decoration-none dropdown-toggle"
         id="dropdownUser1"
         data-bs-toggle="dropdown"
         aria-expanded="false"
       >
         <img
           src="https://github.com/mdo.png"
-          alt="mdo"
+          alt="User avatar"
           width="32"
           height="32"
           class="rounded-circle"
         />
       </a>
-      <ul class="dropdown-menu text-small" aria-labelledby="dropdownUser1">
-        <li><a class="dropdown-item">Profile</a></li>
+      <ul class="dropdown-menu dropdown-menu-end text-small" aria-labelledby="dropdownUser1">
+        <li><a class="dropdown-item" href="#">Profile</a></li>
+        <li><a class="dropdown-item" href="#">Saved Jobs</a></li>
+        <li><a class="dropdown-item" href="#">Applied Jobs</a></li>
         <li><hr class="dropdown-divider" /></li>
-        <li><a class="dropdown-item">Sign out</a></li>
+        <li><a class="dropdown-item" href="#">Sign out</a></li>
       </ul>
     </div>
   </div>

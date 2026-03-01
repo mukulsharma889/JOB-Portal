@@ -1,7 +1,23 @@
 <div class="row">
-  @for (item of jobs(); track $index) {
-    <div class="col-4">
-      <app-job-card></app-job-card>
+  @if (jobs().length === 0) {
+    <div class="col-12">
+      <p class="text-center text-secondary">No job listings available.</p>
     </div>
   }
+
+  @for (job of jobs(); track job.id) {
+    <div class="col-4">
+      <app-job-card [job]="job"></app-job-card>
+    </div>
+  }
+
+  <div class="flex justify-center mt-4">
+    <p-paginator
+      (onPageChange)="onPageChange($event)"
+      [first]="first()"
+      [rows]="rows()"
+      [totalRecords]="jobs().length"
+      [rowsPerPageOptions]="[10, 20, 30]"
+    />
+  </div>
 </div>

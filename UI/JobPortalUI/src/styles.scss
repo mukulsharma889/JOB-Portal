@@ -1,9 +1,6 @@
 // 1. Import functions first
 @import 'bootstrap/scss/functions';
 
-// 2. Define your custom primary color
-$primary: #001a5b; // Example: A nice Purple
-
 // 3. Import the rest of Bootstrap
 @import 'bootstrap/scss/variables';
 @import 'bootstrap/scss/variables-dark';
@@ -12,7 +9,6 @@ $primary: #001a5b; // Example: A nice Purple
 @import 'bootstrap/scss/root';
 @import 'bootstrap/scss/bootstrap';
 
-// :root {
-//   --bs-primary: #6f42c1;
-//   --bs-primary-rgb: 111, 66, 193; /* Required for transparency utilities */
-// }
+:root {
+  --bs-primary: #004dff;
+}

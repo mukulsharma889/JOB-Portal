@@ -1,0 +1,77 @@
+.split-container {
+  display: flex;
+  height: 100vh;
+  width: 100%;
+
+  /* Left Side Styling */
+  .brand-side {
+    flex: 1.2;
+    background:
+      linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)),
+      url('https://images.unsplash.com/photo-1497032628192-86f99bcd76bc?auto=format&fit=crop&q=80')
+        center/cover;
+    display: flex;
+    align-items: center;
+    // padding: 10%;
+    color: white;
+
+    .brand-content {
+      h1 {
+        font-size: 4rem;
+        font-weight: 800;
+        margin: 0;
+      }
+      p {
+        font-size: 1.25rem;
+        font-style: italic;
+        opacity: 0.9;
+      }
+    }
+  }
+
+  /* Right Side Styling */
+  .form-side {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #ffffff;
+    // padding: 2rem;
+
+    .form-wrapper {
+      width: 100%;
+      max-width: 420px;
+      h2 {
+        font-weight: 700;
+        color: #1f2937;
+      }
+    }
+  }
+}
+
+/* Custom Gray Theme Overrides */
+:host ::ng-deep {
+  .p-button-dark-gray {
+    background: #374151 !important; // Your Dark Gray
+    border: none !important;
+    padding: 0.8rem;
+    &:hover {
+      background: #111827 !important;
+    }
+  }
+
+  .p-radiobutton .p-radiobutton-box.p-highlight {
+    background: #374151 !important;
+    border-color: #374151 !important;
+  }
+
+  .link {
+    color: #374151;
+    font-weight: 600;
+    text-decoration: none;
+    &:hover {
+      text-underline-offset: 4px;
+      text-decoration: underline;
+    }
+  }
+}

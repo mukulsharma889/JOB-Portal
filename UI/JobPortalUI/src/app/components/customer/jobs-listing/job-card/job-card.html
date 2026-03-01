@@ -1,30 +1,26 @@
-<div class="container my-2 px-0">
-  <div class="card shadow-sm hover-shadow transition">
-    <div class="row g-0 align-items-center p-3">
-      <div class="col-md-2 text-center py-3 py-md-0">
-        <div
-          class="bg-light rounded-circle d-inline-flex align-items-center justify-content-center"
-          style="width: 80px; height: 80px"
-        >
-          <i class="bi bi-briefcase-fill fs-1 text-primary"></i>
-        </div>
-      </div>
+<div class="job-card my-2 shadow-sm" *ngIf="job()">
+  <!-- positioned elements inside the card -->
+  <span class="badge-urgent" *ngIf="job()?.type === 'Full-time'">Urgently hiring</span>
+  <i
+    class="save-icon fs-5 text-dark clickable"
+    [class.ri-bookmark-fill]="isSaved()"
+    [class.ri-bookmark-line]="!isSaved()"
+    [style.color]="isSaved() ? '#0046b8' : '#000'"
+    (click)="toggleSaveJob()"
+    [title]="isSaved() ? 'Remove from saved' : 'Save job'"
+  ></i>
+  <h2 class="job-title">{{ job()?.title }}</h2>
+  <div class="company-info">
+    <p class="mb-0 text-secondary">{{ job()?.company }}</p>
+    <p class="text-secondary">{{ job()?.location }}</p>
+  </div>
 
-      <div class="col-md-10 ps-md-4">
-        <div class="card-body p-0">
-          <h5 class="card-title fw-bold mb-1">Senior Full Stack Developer</h5>
-          <p class="text-primary mb-2">Ease-Ed Tech Solutions</p>
-          <div class="d-flex flex-wrap gap-3 text-muted small">
-            <span><i class="bi bi-geo-alt me-1"></i>Remote / Punjab</span>
-            <span><i class="bi bi-currency-dollar me-1"></i>₹12L - ₹18L PA</span>
-            <span><i class="bi bi-clock me-1"></i>Full-time</span>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="d-flex gap-2 mb-2 px-2 justify-content-end align-items-center">
-      <a href="#" class="details-link">See Details</a>
-      <button class="btn btn-primary rounded-5" type="button">Apply Now</button>
-    </div>
+  <div class="d-flex flex-wrap gap-2 my-3">
+    <div class="info-pill">{{ job()?.salary }}</div>
+    <div class="info-pill">{{ job()?.type }}</div>
+  </div>
+
+  <div class="apply-section">
+    <span class="easy-apply"> <i class="ri-send-plane-fill"></i> Easily apply </span>
   </div>
 </div>

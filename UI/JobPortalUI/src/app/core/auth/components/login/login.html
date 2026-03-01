@@ -1,1 +1,46 @@
-<p>login works!</p>
+<div class="split-container">
+  <div class="brand-side d-none d-md-flex">
+    <div class="brand-content">
+      <h1>{{ title() }}</h1>
+      <p>Log in to continue your journey.</p>
+    </div>
+  </div>
+
+  <div class="form-side">
+    <div class="form-wrapper">
+      <h2>Welcome Back</h2>
+      <p class="text-muted mb-4">Enter your credentials to access your account.</p>
+
+      <div class="p-fluid">
+        <div class="field mb-3">
+          <label for="login-email">Email</label>
+          <input
+            pInputText
+            id="login-email"
+            [(ngModel)]="credentials.email"
+            placeholder="Enter your email"
+          />
+        </div>
+
+        <div class="field mb-4">
+          <label for="login-pass">Password</label>
+          <p-password
+            id="login-pass"
+            [(ngModel)]="credentials.password"
+            [feedback]="false"
+            [toggleMask]="true"
+            placeholder="••••••••"
+          ></p-password>
+        </div>
+
+        <p-button label="Sign In" (onClick)="onLogin()" styleClass="p-button-dark-gray"></p-button>
+
+        <div class="mt-4 text-center">
+          <span class="text-sm"
+            >New to Ease-Ed? <a routerLink="/register" class="link">Create an account</a></span
+          >
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

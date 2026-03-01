@@ -1,0 +1,8 @@
+.row {
+  /* ensure gutters for card columns */
+  gap: 1rem;
+}
+
+.job-card {
+  min-height: 260px; /* keep cards same height */
+}

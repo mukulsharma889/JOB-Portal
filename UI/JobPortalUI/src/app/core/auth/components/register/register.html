@@ -1,1 +1,73 @@
-<p>register works!</p>
+<div class="split-container">
+  <div class="brand-side d-none d-md-flex">
+    <div class="brand-content">
+      <h1>{{ title() }}</h1>
+      <p>"Where ambitions matters more than affordability"</p>
+    </div>
+  </div>
+
+  <div class="form-side">
+    <div class="form-wrapper">
+      <h2>Create Account</h2>
+      <p class="text-muted mb-4">Join our platform today.</p>
+
+      <div class="row mb-3">
+        <label class="px-0" for="name">Full Name</label>
+        <input pInputText id="name" [(ngModel)]="user.fullName" placeholder="Enter your name" />
+      </div>
+
+      <div class="row mb-3">
+        <label class="px-0" for="email">Email</label>
+        <input
+          pInputText
+          id="email"
+          [(ngModel)]="user.email"
+          type="email"
+          placeholder="email@example.com"
+        />
+      </div>
+
+      <div class="row mb-3">
+        <label class="mb-2 px-0">I am a:</label>
+        <div class="flex gap-4">
+          <div class="flex align-items-center">
+            <p-radioButton
+              name="role"
+              value="seeker"
+              id="r1"
+              [(ngModel)]="user.role"
+            ></p-radioButton>
+            <label for="r1" class="ml-2 cursor-pointer">Job Seeker</label>
+          </div>
+          <div class="flex align-items-center">
+            <p-radioButton
+              name="role"
+              value="creator"
+              id="r2"
+              [(ngModel)]="user.role"
+            ></p-radioButton>
+            <label for="r2" class="ml-2 cursor-pointer">Job Creator</label>
+          </div>
+        </div>
+      </div>
+
+      <div class="row mb-4 w-100">
+        <label class="px-0" for="pass">Password</label>
+        <p-password
+          id="pass"
+          [(ngModel)]="user.password"
+          [toggleMask]="true"
+          placeholder="••••••••"
+        ></p-password>
+      </div>
+
+      <p-button label="Sign Up" (onClick)="onRegister()" styleClass="p-button-dark-gray"></p-button>
+
+      <div class="mt-4 text-center">
+        <span class="text-sm"
+          >Already have an account? <a routerLink="/login" class="link">Login</a></span
+        >
+      </div>
+    </div>
+  </div>
+</div>
